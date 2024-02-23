@@ -38,12 +38,12 @@ public class User implements UserDetails {
     private Role role;
 
 
-    public User(String email, String password, String name, String surname, Role role) {
+    public User(String email, String password, String name, String surname) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.role = role;
+        this.role = Role.USER;
     }
 
     @Override
