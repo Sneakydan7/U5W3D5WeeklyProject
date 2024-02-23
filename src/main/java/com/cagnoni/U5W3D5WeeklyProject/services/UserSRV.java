@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -58,11 +60,17 @@ public class UserSRV {
 
     }
 
-    public void reserveEventForUser(String email, ReservationDTO payload) {
-        User foundUser = userDAO.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        Event foundEvent = eventSRV.getEventById(payload.eventId());
-
-
+    public User reserveEventForUser(ReservationDTO payload, Long eventId) {
+        User foundUser = userDAO.findByEmail(payload.email()).orElseThrow(() -> new RuntimeException("User not found"));
+        Event foundEvent = eventSRV.getEventById(eventId);
+        Set<Event> existingEvents = foundUser.getEvents();
+        if (existingEvents == null) {
+            existingEvents = new HashSet<>();
+        }
+        existingEvents.add(foundEvent);
+        foundUser.setEvents(existingEvents);
+        userDAO.save(foundUser);
+        return foundUser;
     }
 
 }

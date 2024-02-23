@@ -1,6 +1,8 @@
 package com.cagnoni.U5W3D5WeeklyProject.controllers;
 
+import com.cagnoni.U5W3D5WeeklyProject.entities.Event;
 import com.cagnoni.U5W3D5WeeklyProject.entities.User;
+import com.cagnoni.U5W3D5WeeklyProject.payloads.ReservationDTO;
 import com.cagnoni.U5W3D5WeeklyProject.payloads.UserDTO;
 import com.cagnoni.U5W3D5WeeklyProject.services.AuthSRV;
 import com.cagnoni.U5W3D5WeeklyProject.services.UserSRV;
@@ -79,4 +81,9 @@ public class UserCTRL {
         this.userSRV.getUserById(currentAuthenticatedUser.getId());
     }
 
+    @PutMapping("/reserve/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User reserveEventForUser(@RequestBody ReservationDTO reservationDTO, @PathVariable Long id) {
+        return this.userSRV.reserveEventForUser(reservationDTO, id);
+    }
 }

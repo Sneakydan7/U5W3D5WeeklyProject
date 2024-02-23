@@ -1,6 +1,7 @@
 package com.cagnoni.U5W3D5WeeklyProject.entities;
 
 import com.cagnoni.U5W3D5WeeklyProject.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -34,6 +35,7 @@ public class User implements UserDetails {
     private Role role;
 
     @ToString.Exclude
+
     @ManyToMany
     @JoinTable(name = "users_events",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -1,5 +1,6 @@
 package com.cagnoni.U5W3D5WeeklyProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,10 @@ public class Event {
     private LocalDate date;
     private String location;
     private Integer maxCapacity;
+
+    @ManyToMany(mappedBy = "events")
+    @JsonIgnore
+    private Set<User> users = new LinkedHashSet<>();
 
 
     public Event(String eventTitle, String description, LocalDate date, String location, Integer maxCapacity) {

@@ -1,4 +1,4 @@
 package com.cagnoni.U5W3D5WeeklyProject.payloads;
 
-public record ReservationDTO(Long eventId) {
+public record ReservationDTO(String email) {
 }
