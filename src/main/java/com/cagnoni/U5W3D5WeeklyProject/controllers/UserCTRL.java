@@ -86,4 +86,10 @@ public class UserCTRL {
     public User reserveEventForUser(@RequestBody ReservationDTO reservationDTO, @PathVariable Long id) {
         return this.userSRV.reserveEventForUser(reservationDTO, id);
     }
+
+    @PutMapping("/cancelReservation/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User cancelReservationForUser(@RequestBody ReservationDTO reservationDTO, @PathVariable Long id) {
+        return this.userSRV.cancelReservationForUser(reservationDTO, id);
+    }
 }

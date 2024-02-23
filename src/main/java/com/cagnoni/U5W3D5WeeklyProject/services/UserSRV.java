@@ -73,4 +73,21 @@ public class UserSRV {
         return foundUser;
     }
 
+    public User cancelReservationForUser(ReservationDTO payload, Long eventId) {
+        User foundUser = userDAO.findByEmail(payload.email()).orElseThrow(() -> new RuntimeException("User not found"));
+        Event eventToRemove = eventDAO.findById(eventId)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+
+
+        Set<Event> existingEvents = foundUser.getEvents();
+
+        if (existingEvents != null) {
+            existingEvents.remove(eventToRemove);
+            foundUser.setEvents(existingEvents);
+            userDAO.save(foundUser);
+        }
+
+        return foundUser;
+    }
+
 }
