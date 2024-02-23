@@ -3,8 +3,14 @@ package com.cagnoni.U5W3D5WeeklyProject.payloads;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-public class UserRegisterDTO {
+@Getter
+@Setter
+@AllArgsConstructor
+public class UserDTO {
     @Email(message = "Email is required")
     String email;
     @NotEmpty(message = "Password is required")
