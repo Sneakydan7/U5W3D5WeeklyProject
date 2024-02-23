@@ -1,8 +1,11 @@
 package com.cagnoni.U5W3D5WeeklyProject.services;
 
+import com.cagnoni.U5W3D5WeeklyProject.entities.Event;
 import com.cagnoni.U5W3D5WeeklyProject.entities.User;
 import com.cagnoni.U5W3D5WeeklyProject.exceptions.UUIDNotFoundException;
+import com.cagnoni.U5W3D5WeeklyProject.payloads.ReservationDTO;
 import com.cagnoni.U5W3D5WeeklyProject.payloads.UserDTO;
+import com.cagnoni.U5W3D5WeeklyProject.repositories.EventDAO;
 import com.cagnoni.U5W3D5WeeklyProject.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,12 @@ import java.util.UUID;
 public class UserSRV {
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private EventDAO eventDAO;
+
+    @Autowired
+    private EventSRV eventSRV;
 
     public Page<User> getUsers(int pageNum, int size, String orderBy) {
         if (size > 100) size = 100;
@@ -46,6 +55,13 @@ public class UserSRV {
 
     public User findUserByEmail(String email) {
         return userDAO.findByEmail(email).orElseThrow(() -> new RuntimeException("User with this email not found"));
+
+    }
+
+    public void reserveEventForUser(String email, ReservationDTO payload) {
+        User foundUser = userDAO.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        Event foundEvent = eventSRV.getEventById(payload.eventId());
+
 
     }
 

@@ -7,9 +7,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "events")
 @Setter
 @Getter
 @ToString
@@ -24,6 +26,7 @@ public class Event {
     private LocalDate date;
     private String location;
     private Integer maxCapacity;
+
 
     public Event(String eventTitle, String description, LocalDate date, String location, Integer maxCapacity) {
         this.eventTitle = eventTitle;

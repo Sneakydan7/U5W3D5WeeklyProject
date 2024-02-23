@@ -1,6 +1,7 @@
 package com.cagnoni.U5W3D5WeeklyProject.entities;
 
 import com.cagnoni.U5W3D5WeeklyProject.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,9 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -20,30 +19,33 @@ import java.util.UUID;
 @Getter
 @ToString
 @NoArgsConstructor
+@JsonIgnoreProperties({"password", "credentialsNonExpired", "accountNonExpired", "accountNonLocked", "enabled"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private UUID id;
-
     private String email;
-
     private String password;
-
     private String name;
-
     private String surname;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(name = "users_events",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "events_id"))
+    private Set<Event> events = new LinkedHashSet<>();
 
     public User(String email, String password, String name, String surname) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.role = Role.USER;
+        this.role = Role.EVENT_MANAGER;
     }
 
     @Override
