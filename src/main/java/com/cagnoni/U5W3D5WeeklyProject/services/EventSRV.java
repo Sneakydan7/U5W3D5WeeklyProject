@@ -17,7 +17,7 @@ public class EventSRV {
     @Autowired
     private EventDAO eventDAO;
 
-    public Page<Event> getDevices(int pageNum, int size, String orderBy) {
+    public Page<Event> getEvents(int pageNum, int size, String orderBy) {
         if (size > 100) size = 100;
         Pageable pageable = PageRequest.of(pageNum, size, Sort.by(orderBy));
         return eventDAO.findAll(pageable);

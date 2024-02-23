@@ -47,7 +47,7 @@ public class User implements UserDetails {
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.role = Role.EVENT_MANAGER;
+        this.role = Role.USER;
     }
 
     @Override

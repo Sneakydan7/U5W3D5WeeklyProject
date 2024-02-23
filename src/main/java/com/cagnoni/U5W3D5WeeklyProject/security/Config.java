@@ -3,6 +3,7 @@ package com.cagnoni.U5W3D5WeeklyProject.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -14,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class Config {
     @Autowired
     private JWTFilter jwtFilter;
@@ -30,7 +32,7 @@ public class Config {
 
 
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/**").permitAll());
-        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/users").hasAuthority("EVENT_MANAGER"));
+        ;
 
         return httpSecurity.build();
     }
